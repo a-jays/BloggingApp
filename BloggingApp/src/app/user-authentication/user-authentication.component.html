@@ -1,0 +1,70 @@
+<div style="text-align:center">
+    <h1>
+      Hello {{Name}}!
+    </h1>
+    <h2>My Blogs</h2>
+    
+    <div *ngIf = "SortDescending">
+        <button  class="pull-left" (click)="sortAscending()">SortAscending  </button>
+    </div>
+    <div *ngIf = "SortAscending">
+        <button class="pull-left" (click)="sortDescending()">SortDescending  </button>
+    </div>
+    
+        <ul class="blogs" style="position: absolute; margin-top: 40px;">
+            <li *ngFor="let blog of BlogList">
+            <span class="badge">{{blog.id}}</span> {{blog.title}} 
+            <p style="position: absolute;left: 80px;">
+                <button class="pull-right" (click)="onSelect(blog)">Open  </button> 
+                <button class="pull-right" (click)="onEdit(blog)">Edit Content </button>
+                <button class="pull-right" (click)="onDelete(blog)">Delete  </button>
+            </p>
+
+          </li>
+        </ul>
+
+        <div *ngIf = "edit">
+            <input type="text" [(ngModel)]="content">
+            <p>
+                <button class="pull-right" (click)="onSave()">Save</button>
+            </p> 
+        </div>
+
+        <div *ngIf="blog && !edit">
+
+            <h2 style="color:blanchedalmond">{{blog.title | uppercase}}</h2>
+            <div style="font-weight: 500; color: burlywood;">
+              {{blog.content}}
+            </div>  
+        </div>
+        <p>
+            <button (click)="addNew()" style="position: absolute;right: 75px;top: 115px; width: 166px;height: 50px;">
+              Add New Blog
+            </button>
+        </p>
+        <div *ngIf = "isAddNew">
+            <form [formGroup]="blogForm">
+
+                <label>
+                  Title: 
+                  <input type="text" style="padding-right: 200px;" formControlName="title">
+                </label>
+              
+                <label style="display: inherit;margin-top: 10px;">
+                  Content:
+                  <input type="text" style="padding-bottom: 200px;padding-right: 200px;" formControlName="content">
+                </label>
+              
+              </form>
+              <p>
+                <button class="pull-right" (click)="onNewSave()">Save</button>
+                </p>
+        </div>
+
+
+    <p>
+      <button (click)="logout()" style="position: absolute;right: 75px;top: 35px;">
+        Logout
+      </button>
+    </p>
+  </div>
